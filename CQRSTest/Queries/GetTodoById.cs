@@ -1,5 +1,7 @@
 ﻿using CQRSTest.Database;
 using MediatR;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,12 +10,12 @@ namespace CQRSTest.Queries
 {
     public static class GetTodoById
     {
-        // Query
-        // All the information we need to perform the query
+        // Query / Command
+        // All the data we need to execute
         public record Query(int Id) : IRequest<Response>;
 
         // Handler
-        // Perform the business and execute the query. Return a response.
+        // All the business logic to execute. Returns a response.
         public class Handler : IRequestHandler<Query, Response>
         {
             private readonly Repository repository;
@@ -31,7 +33,7 @@ namespace CQRSTest.Queries
         }
 
         // Response
-        // The data we want to return.
+        // The data we want to return
         public record Response(int Id, string Name, bool Completed);
     }
 }
