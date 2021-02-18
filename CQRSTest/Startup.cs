@@ -1,3 +1,4 @@
+using CQRSTest.Behaviours;
 using CQRSTest.Database;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,9 @@ namespace CQRSTest
             });
             services.AddSingleton<Repository>();
             services.AddMediatR(typeof(Startup).Assembly);
+
+            // Order is important
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
